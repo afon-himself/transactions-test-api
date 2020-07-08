@@ -39,3 +39,11 @@ document.querySelector('.update').addEventListener('click', () => {
   .then(response => response.json())
   .then(data => console.log(data));
 });
+
+document.querySelector('.remove').addEventListener('click', () => {
+  fetch('/api/transaction/0', {
+    method: 'DELETE'
+  })
+  .then(response => response.json())
+  .then(data => console.log(data));
+});

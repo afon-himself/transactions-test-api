@@ -51,6 +51,19 @@ app.put('/api/transaction/:id', (req, res) => {
   }
 });
 
+app.delete('/api/transaction/:id', (req, res) => {
+  const id = req.params.id;
+  const index = transactions.findIndex(item => item.id === Number(id));
+
+  if (index > -1) {
+    transactions.splice(index, 1);
+    res.status(200).send(JSON.stringify(transactions));
+  } else {
+    res.status(404).send(JSON.stringify({ error: 'Transaction not found' }));
+  }
+  
+});
+
 app.listen(3000, () => {
   console.log('Server is running on 3000');
 });

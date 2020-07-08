@@ -16,7 +16,20 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/transaction', (req, res) => {
-  res.send(JSON.stringify(transactions));
+  const { from, to } = req.query;
+  console.log(req.query)
+
+  let result = [...transactions];
+
+  if (from) {
+    result = result.filter(item => item.from === from);
+  }
+
+  if (to) {
+    result = result.filter(item => item.to === to);
+  }
+
+  res.send(JSON.stringify(result));
 });
 
 app.post('/api/transaction', (req, res) => {

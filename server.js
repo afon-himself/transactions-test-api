@@ -6,6 +6,8 @@ const transactions = [
   { from: 'Jane Smith', to: 'John Smith', amount: 200 }
 ];
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
@@ -14,6 +16,17 @@ app.get('/', (req, res) => {
 
 app.get('/api/transaction', (req, res) => {
   res.send(JSON.stringify(transactions));
+});
+
+app.post('/api/transaction', (req, res) => {
+  const transaction = req.body;
+
+  if ('from' in transaction && 'to' in transaction && 'amount' in transaction) {
+    transactions.push(transaction);
+    res.status(201).send(transaction);
+  } else {
+    res.status(400).send(JSON.stringify({ error: 'Invalid data' }));
+  }
 });
 
 app.listen(3000, () => {

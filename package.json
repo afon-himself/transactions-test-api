@@ -1,0 +1,22 @@
+{
+  "name": "transactions-test-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afon-himself/transactions-test-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/afon-himself/transactions-test-api/issues"
+  },
+  "homepage": "https://github.com/afon-himself/transactions-test-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

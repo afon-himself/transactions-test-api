@@ -21,3 +21,21 @@ document.querySelector('.new').addEventListener('click', () => {
   .then(response => response.json())
   .then(data => console.log(data));
 });
+
+document.querySelector('.update').addEventListener('click', () => {
+  const data = {
+    from: 'UPD',
+    to: 'UPD',
+    amount: 200
+  };
+
+  fetch('/api/transaction/1', {
+    method: 'PUT',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => console.log(data));
+});

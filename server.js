@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
   res.render('index.html');
 });
 
-app.get('/api/transaction', (req, res) => {
+app.get('/api/transaction/', (req, res) => {
   const { from, to } = req.query;
   console.log(req.query)
 
@@ -32,7 +32,7 @@ app.get('/api/transaction', (req, res) => {
   res.send(JSON.stringify(result));
 });
 
-app.post('/api/transaction', (req, res) => {
+app.post('/api/transaction/', (req, res) => {
   if ('from' in req.body && 'to' in req.body && 'amount' in req.body) {
     currentId++;
     let transaction = req.body;
@@ -44,7 +44,7 @@ app.post('/api/transaction', (req, res) => {
   }
 });
 
-app.put('/api/transaction/:id', (req, res) => {
+app.put('/api/transaction/:id/', (req, res) => {
   const id = req.params.id;
   let data = req.body;
   const transaction = transactions.find(item => item.id === Number(id));
@@ -64,7 +64,7 @@ app.put('/api/transaction/:id', (req, res) => {
   }
 });
 
-app.delete('/api/transaction/:id', (req, res) => {
+app.delete('/api/transaction/:id/', (req, res) => {
   const id = req.params.id;
   const index = transactions.findIndex(item => item.id === Number(id));
 

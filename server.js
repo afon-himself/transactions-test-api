@@ -12,7 +12,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.render('index.html');
+  res.send('Transactions Test API');
+  // res.render('index.html');
 });
 
 app.get('/api/transaction/', (req, res) => {

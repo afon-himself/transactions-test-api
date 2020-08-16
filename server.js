@@ -29,7 +29,7 @@ app.get('/api/transaction', (req, res) => {
     result = result.filter(item => item.to === to);
   }
 
-  res.send(JSON.stringify(result));
+  res.status(200).send(JSON.stringify(result));
 });
 
 app.post('/api/transaction', (req, res) => {

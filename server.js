@@ -39,13 +39,12 @@ app.get('/api/transaction/', (req, res) => {
 });
 
 app.post('/api/transaction/', (req, res) => {
-  const { from, to, amount } = JSON.parse(req.body);
-
-  if (from && to && amount) {
+  if ('from' in req.body && 'to' in req.body && 'amount' in req.body) {
     currentId++;
-    let transaction = { id: currentId, from, to, amount };
+    let transaction = req.body;
+    transaction = { ...transaction, id: currentId };
     transactions.push(transaction);
-    res.status(201).send(JSON.stringify(transaction));
+    res.status(201).send(transaction);
   } else {
     res.status(400).send(JSON.stringify({ error: 'Invalid data' }));
   }

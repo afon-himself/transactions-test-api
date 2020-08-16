@@ -45,7 +45,7 @@ app.post('/api/transaction/', (req, res) => {
     currentId++;
     let transaction = { id: currentId, from, to, amount };
     transactions.push(transaction);
-    res.status(201).send(transaction);
+    res.status(201).send(JSON.stringify(transaction));
   } else {
     res.status(400).send(JSON.stringify({ error: 'Invalid data' }));
   }

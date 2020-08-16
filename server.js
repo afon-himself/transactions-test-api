@@ -39,10 +39,11 @@ app.get('/api/transaction/', (req, res) => {
 });
 
 app.post('/api/transaction/', (req, res) => {
-  if ('from' in req.body && 'to' in req.body && 'amount' in req.body) {
+  const { from, to, amount } = JSON.parse(req.body);
+
+  if (from && to && amount) {
     currentId++;
-    let transaction = req.body;
-    transaction = { ...transaction, id: currentId };
+    let transaction = { id: currentId, from, to, amount };
     transactions.push(transaction);
     res.status(201).send(transaction);
   } else {

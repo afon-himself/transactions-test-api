@@ -1,11 +1,16 @@
 const express = require('express');
 const cors = require('cors');
+const uuid = require('uuid');
 const app = express();
 
 let currentId = 2;
 const transactions = [
   { id: 0, from: 'John Smith', to: 'Jane Smith', amount: 100 },
   { id: 1, from: 'Jane Smith', to: 'John Smith', amount: 200 }
+];
+
+const moviesLists = [
+
 ];
 
 const goods = [
@@ -107,6 +112,27 @@ app.delete('/api/transaction/:id/', (req, res) => {
     res.status(404).send(JSON.stringify({ error: 'Transaction not found' }));
   }
   
+});
+
+app.post('/api/movies/list/', (req, res) => {
+  if ('title' in req.body && 'movies' in req.body) {
+    const moviesList = {...req.body, id: uuid.v4()};
+    moviesLists.push(moviesList);
+    res.status(201).send(moviesList);
+  } else {
+    res.status(400).send(JSON.stringify({ error: 'Invalid data' }));
+  }
+});
+
+app.get('/api/movies/list/:id', (req, res) => {
+  const id = req.params.id;
+  const match = moviesLists.find(item => item.id === id);
+
+  if (match) {
+    res.status(200).send(match);
+  } else {
+    res.status(404).send();
+  }
 });
 
 app.listen(3000, () => {

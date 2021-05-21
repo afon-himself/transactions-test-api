@@ -75,6 +75,12 @@ app.post('/api/transaction/', (req, res) => {
     let transaction = req.body;
     transaction = { ...transaction, id: currentId };
     transactions.push(transaction);
+
+    if (transactions.length > 20) {
+      transactions.shift();
+    }
+
+    console.log(transactions);
     res.status(201).send(transaction);
   } else {
     res.status(400).send(JSON.stringify({ error: 'Invalid data' }));
@@ -118,6 +124,12 @@ app.post('/api/movies/list/', (req, res) => {
   if ('title' in req.body && 'movies' in req.body) {
     const moviesList = {...req.body, id: uuid.v4()};
     moviesLists.push(moviesList);
+
+    if (moviesLists.length > 100) {
+      moviesLists.shift();
+    }
+
+    console.log(moviesLists);
     res.status(201).send(moviesList);
   } else {
     res.status(400).send(JSON.stringify({ error: 'Invalid data' }));

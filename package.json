@@ -19,6 +19,7 @@
   "homepage": "https://github.com/afon-himself/transactions-test-api#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "cron": "^1.8.2",
     "express": "^4.17.1",
     "uuid": "^8.3.0"
   },

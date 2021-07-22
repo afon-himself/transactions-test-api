@@ -1,7 +1,27 @@
 const express = require('express');
+const https = require('https');
 const cors = require('cors');
 const uuid = require('uuid');
+const CronJob = require('cron').CronJob;
 const app = express();
+
+function wakeUpHeroku(hostname, path) {
+  const req = https.request({
+    method: 'GET',
+    port: 443,
+    hostname,
+    path
+  }, (res) => {
+    console.log(`[${res.statusCode}] – request to ${hostname + path}`);
+  });
+  
+  req.end();
+}
+
+const job = new CronJob('32 * * * *', function() {
+  wakeUpHeroku('healtheatapp.herokuapp.com', '/api/recipe');
+}, null, true);
+job.start();
 
 let currentId = 2;
 const transactions = [

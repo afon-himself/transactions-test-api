@@ -18,8 +18,9 @@ function wakeUpHeroku(hostname, path) {
   req.end();
 }
 
-const job = new CronJob('32 * * * *', function() {
+const job = new CronJob('43 * * * *', function() {
   wakeUpHeroku('healtheatapp.herokuapp.com', '/api/recipe');
+  wakeUpHeroku('long-words-game.herokuapp.com', '/');
 }, null, true);
 job.start();
 

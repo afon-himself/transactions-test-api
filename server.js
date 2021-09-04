@@ -53,12 +53,36 @@ const goods = [
     title: 'Anker PowerCore 10000 Portable Charger',
     description: `One of The Smallest and Lightest 10000mAh Power Bank, Ultra-Compact Battery Pack, High-Speed Charging Technology Phone Charger for iPhone, Samsung and More.`,
     price: 150
+  },
+  {
+    id: 3,
+    title: 'Apple Pencil (2nd Generation)',
+    description: `Compatible with iPad Air (4th generation), iPad Pro 12.9-inch (3rd, 4th, and 5th generations), iPad Pro 11-inch (1st, 2nd, and 3rd generations)`,
+    price: 40
+  },
+  {
+    id: 4,
+    title: 'SAMSUNG: EVO Select 128GB MicroSD',
+    description: `IDEAL FOR RECORDING 4K UHD VIDEO: Samsung microSD EVO Select is perfect for high res photos, gaming, music, tablets, laptops, action cameras, DSLR's, drones, smartphones (Galaxy S20 5G, S20 5G, S20 Ultra 5G, S10, S10 , S10e, S9, S9 , Note9, S8, S8 , Note8, S7, S7 Edge, etc. ), Android devices and more.`,
+    price: 20
+  },
+  {
+    id: 5,
+    title: 'ZOTAC Gaming GeForce RTX 3060',
+    description: `NVIDIA Ampere architecture, 2nd Gen Ray Tracing Cores, 3rd Gen Tensor Cores. 12GB 192-bit GDDR6, 15 Gbps, PCIE 4.0; Boost Clock 1807 MHz. IceStorm 2.0 Cooling, Active Fan Control, Freeze Fan Stop, Metal Backplate.`,
+    price: 650
+  },
+  {
+    id: 6,
+    title: 'Roku Express 4K+ 2021 | Streaming Media Player',
+    description: `Smooth wireless streaming: Now featuring dual-band wireless, enjoy a smooth streaming experience with faster wireless performance, even with multiple devices connected to your network`,
+    price: 28
   }
 ];
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 app.use(cors());
 
 app.get('/', (req, res) => {
@@ -70,7 +94,17 @@ app.get('/api/test/', (req, res) => {
 });
 
 app.get('/api/goods/', (req, res) => {
-  res.status(200).send(JSON.stringify(goods));
+  const { page, limit } = req.query;
+
+  if (!page || !limit) {
+    res.status(200).send(goods);
+  } else {
+    const from = page * limit;
+    const to = Number(from) + Number(limit);
+
+    res.status(200).send(goods.slice(from, to));
+  }
+
 });
 
 app.get('/api/transaction/', (req, res) => {
